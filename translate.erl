@@ -1,5 +1,5 @@
 -module(translate).
--export(loop/0).
+-export([loop/0,showDayByIdx/0]).
 
 loop()->
 	receive
@@ -9,6 +9,12 @@ loop()->
 		4 -> "Thursday";
 		5 -> "Friday";
 		6 -> "Satday";
-		0 -> "Sunday"
+		0 -> "Sunday";
+		_ -> stop
 	end.
-
+showDayByIdx()->
+	Day= loop(),
+	case Day of
+		stop -> stop;
+		_ ->io:format("~w~n",[Day]),showDayByIdx()
+	end.
